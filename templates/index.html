@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask App</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #007bff, #ffffff);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .values {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            setInterval(function() {
+                $.ajax({
+                    url: '/system_stats',
+                    success: function(data) {
+                        $('#cpu').text(data.cpu_percent + '%');
+                        $('#memory').text(data.memory_percent + '%');
+                    }
+                });
+            }, 1000);
+        });
+    </script>
+</head>
+<body>
+    <div class="card">
+        <h1>Flask App</h1>
+        <p class="values">CPU Usage: <span id="cpu"></span></p>
+        <p class="values">Memory Usage: <span id="memory"></span></p>
+    </div>
+</body>
+</html>
